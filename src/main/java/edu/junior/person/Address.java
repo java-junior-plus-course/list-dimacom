@@ -1,5 +1,7 @@
 package edu.junior.person;
 
+import java.util.Objects;
+
 public class Address {
 
     private String county;
@@ -12,6 +14,13 @@ public class Address {
         this.city = city;
         this.street = street;
         this.apartment = apartment;
+    }
+    public Address(Address address) {
+        this(address.getCounty(), address.getCity(), address.getStreet(), address.getApartment());
+    }
+    @Override
+    public String toString() {
+        return String.format("address : %s %s,%s %s  ", county, city, street, apartment);
     }
 
     public String getCounty() {
@@ -44,5 +53,21 @@ public class Address {
 
     public void setApartment(String apartment) {
         this.apartment = apartment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(county, address.county) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(street, address.street) &&
+                Objects.equals(apartment, address.apartment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(county, city, street, apartment);
     }
 }

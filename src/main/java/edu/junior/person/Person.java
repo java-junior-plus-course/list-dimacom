@@ -1,6 +1,9 @@
 package edu.junior.person;
 
-public class Person {
+import java.util.List;
+import java.util.Objects;
+
+public class Person  {
 
     private String firstName;
     private String lastName;
@@ -12,6 +15,14 @@ public class Person {
         this.lastName = lastName;
         this.age = age;
         this.address = address;
+    }
+
+    public Person(Person person){
+        this(person.getFirstName(), person.getLastName(), person.getAge(), new Address(person.address) );
+    }
+    @Override
+    public String toString() {
+        return String.format(" \n %s %s, age %d,%s", firstName, lastName, age, address);
     }
 
     public String getFirstName() {
@@ -44,5 +55,21 @@ public class Person {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age &&
+                Objects.equals(firstName, person.firstName) &&
+                Objects.equals(lastName, person.lastName) &&
+                Objects.equals(address, person.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, age, address);
     }
 }
