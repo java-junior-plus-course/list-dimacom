@@ -1,9 +1,8 @@
 package edu.junior.person;
 
-import java.util.List;
 import java.util.Objects;
 
-public class Person  {
+public class Person<P> implements Comparable<Person> {
 
     private String firstName;
     private String lastName;
@@ -17,9 +16,10 @@ public class Person  {
         this.address = address;
     }
 
-    public Person(Person person){
-        this(person.getFirstName(), person.getLastName(), person.getAge(), new Address(person.address) );
+    public Person(Person person) {
+        this(person.getFirstName(), person.getLastName(), person.getAge(), new Address(person.address));
     }
+
     @Override
     public String toString() {
         return String.format(" \n %s %s, age %d,%s", firstName, lastName, age, address);
@@ -71,5 +71,11 @@ public class Person  {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, age, address);
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return Integer.compare( age , o.age);
+
     }
 }

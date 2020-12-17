@@ -1,30 +1,24 @@
 package edu.junior.collection;
 
-import edu.junior.person.Person;
-
 import java.util.Arrays;
-import java.util.Comparator;
 
+public class ListP<P> implements PersonList<P> {
+    private P[] elementData;
 
-public class List implements PersonList {
-    private Person[] elementData;
-
-    public List() {
-        this.elementData = new Person[0];
+    public ListP() {
     }
 
-    public List(Person... people) {
-        this.elementData = Arrays.copyOf(people, people.length);
+    public ListP(P... element) {
+        this.elementData = Arrays.copyOf(element, element.length);
     }
 
-    @Override
     public String toString() {
         return Arrays.toString(elementData);
     }
 
     @Override
     public boolean isEmpty() {
-        if (elementData == null || elementData.length == 0) {
+        if (elementData == null || size() == 0) {
             return true;
         }
         return false;
@@ -39,29 +33,29 @@ public class List implements PersonList {
     }
 
     @Override
-    public void add(Person person) {
+    public void add(P person) {
         add(person, elementData.length);
     }
 
     @Override
-    public void add(Person person, int index) {
+    public void add(P person, int index) {
         if (index > elementData.length) {
             throw new IllegalArgumentException("index it greater than the size of the list");
         }
-        Person[] result = new Person[elementData.length + 1];
-        result[index] = new Person(person);
+        P[] result = (P[]) new Object[elementData.length + 1];
+        result[index] = person;
         int i = 0;
-        for (Person element : elementData) {
+        for (P element : elementData) {
             if (i == index) {
                 i++;
             }
-            result[i++] = new Person(element);
+            result[i++] = element;
             elementData = result;
         }
     }
 
     @Override
-    public Person get(int index) {
+    public P get(int index) {
         if (index > elementData.length - 1) {
             throw new IllegalArgumentException("index it greater than the size of the list");
         }
@@ -69,10 +63,10 @@ public class List implements PersonList {
     }
 
     @Override
-    public int indexOf(Person person) {
+    public int indexOf(P person) {
         if (person != null) {
             int i = 0;
-            for (Person element : elementData) {
+            for (P element : elementData) {
                 if (person.equals(element)) {
                     return i;
                 }
@@ -83,7 +77,7 @@ public class List implements PersonList {
     }
 
     @Override
-    public boolean contains(Person person) {
+    public boolean contains(P person) {
         if (indexOf(person) != -1) {
             return true;
         }
@@ -91,24 +85,24 @@ public class List implements PersonList {
     }
 
     @Override
-    public Person remove(int index) {
+    public P remove(int index) {
         if (index >= elementData.length || index < 0) {
             throw new IllegalArgumentException("illegal argument");
         }
-        Person[] result = new Person[elementData.length - 1];
+        P[] result = (P[]) new Object[elementData.length - 1];
         int j = 0;
         for (int i = 0; i < elementData.length - 1; i++) {
             if (j == index) {
                 j++;
             }
-            result[i] = new Person(elementData[j++]);
+            result[i] = elementData[j++];
         }
         elementData = result;
         return elementData[index];
     }
 
     @Override
-    public boolean remove(Person person) {
+    public boolean remove(P person) {
         int index = indexOf(person);
         if (index != -1) {
             remove(index);
@@ -119,16 +113,18 @@ public class List implements PersonList {
 
     @Override
     public void clear() {
-        elementData = new Person[0];
+
+        elementData = (P[]) new Object[0];
     }
 
     @Override
     public void sort() {
-        Arrays.sort(elementData, Comparator.comparing(Person::getLastName));
+        Arrays.sort(elementData);
     }
 
     @Override
-    public Person[] toArray() {
-        return elementData;
+    public P[] toArray() {
+        P[] result = Arrays.copyOf(elementData, elementData.length);
+        return result;
     }
 }

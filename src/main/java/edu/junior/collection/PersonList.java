@@ -1,8 +1,8 @@
 package edu.junior.collection;
 
-import edu.junior.person.Person;
+//import edu.junior.person.Person;
 
-public interface PersonList {
+public interface PersonList<P> {
 
     /**
      * Checks if the list is empty
@@ -23,7 +23,7 @@ public interface PersonList {
      *
      * @param person person to be inserted
      */
-    void add(Person person);
+    void add(P person);
 
     /**
      * Adds a person to a certain position in the list
@@ -33,7 +33,7 @@ public interface PersonList {
      * @param index  the position to insert
      * @throws IllegalArgumentException if the index it greater than the size of the list
      */
-    void add(Person person, int index);
+    void add(P person, int index);
 
     /**
      * Gets the person by its index
@@ -42,7 +42,7 @@ public interface PersonList {
      * @return the person from certain position
      * @throws IllegalArgumentException if the index it greater than the size of the list
      */
-    Person get(int index);
+    P get(int index);
 
     /**
      * Returns the index of the person
@@ -50,7 +50,7 @@ public interface PersonList {
      * @param person searched person
      * @return the index of a person, or -1 if the list doesn't contain it
      */
-    int indexOf(Person person);
+    int indexOf(P person);
 
     /**
      * Checks if the list contains a certain person
@@ -58,7 +58,7 @@ public interface PersonList {
      * @param person person to be matched
      * @return true if the list contains the person, false otherwise
      */
-    boolean contains(Person person);
+    boolean contains(P person);
 
     /**
      * Removes a person from a certain index
@@ -69,7 +69,7 @@ public interface PersonList {
      * @return removed person
      * @throws IllegalArgumentException if the index it greater than the size of the list
      */
-    Person remove(int index);
+    P remove(int index);
 
     /**
      * Removes a certain person
@@ -79,7 +79,7 @@ public interface PersonList {
      * @param person person to be removed
      * @return true if the person is removed, false otherwise
      */
-    boolean remove(Person person);
+    boolean remove(P person);
 
     /**
      * Removes all the elements from the list
@@ -98,5 +98,5 @@ public interface PersonList {
      *
      * @return the array representation of the list
      */
-    Person[] toArray();
+    P[] toArray();
 }
